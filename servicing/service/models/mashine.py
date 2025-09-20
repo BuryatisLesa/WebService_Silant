@@ -2,7 +2,7 @@ from django.db import models
 from service.models.service_company import Service_Company
 
 
-class Machines(models.Model):
+class Machine(models.Model):
     unique_machine_number = models.CharField(max_length=500, unique=True)
 
     model_machine = models.ForeignKey(
