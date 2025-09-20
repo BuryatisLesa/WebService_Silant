@@ -1,4 +1,5 @@
 from django.db import models
+from service.models.service_company import Service_Company
 
 
 class Machines(models.Model):
@@ -38,7 +39,7 @@ class Machines(models.Model):
 
     #Модель управляемого моста
     model_steer_axle = models.ForeignKey(
-        "Model_Drive_Axle",
+        "Model_Streer_Axle",
         on_delete=models.CASCADE,
         related_name="machines_by_drive_axle"
     )
@@ -59,7 +60,7 @@ class Machines(models.Model):
     client = models.CharField(max_length=500)
 
     service_company = models.ForeignKey(
-        "Service_Company",
+        Service_Company,
         on_delete=models.CASCADE,
         related_name="machines_by_service"
     )
@@ -68,22 +69,22 @@ class Machines(models.Model):
 
 #Справочники
 
-class Model_Machine(models.Models):
+class Model_Machine(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Engine(models.Models):
+class Model_Engine(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Transmission(models.Models):
+class Model_Transmission(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Drive_Axle(models.Models):
+class Model_Drive_Axle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Stree_Axle(models.Models):
+class Model_Streer_Axle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
