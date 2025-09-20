@@ -63,3 +63,27 @@ class Machines(models.Model):
         on_delete=models.CASCADE,
         related_name="machines_by_service"
     )
+
+
+
+#Справочники
+
+class Model_Machine(models.Models):
+    name = models.CharField(max_length=500)
+    descriptions = models.TextField()
+
+class Model_Engine(models.Models):
+    name = models.CharField(max_length=500)
+    descriptions = models.TextField()
+
+class Model_Transmission(models.Models):
+    name = models.CharField(max_length=500)
+    descriptions = models.TextField()
+
+class Model_Drive_Axle(models.Models):
+    name = models.CharField(max_length=500)
+    descriptions = models.TextField()
+
+class Model_Stree_Axle(models.Models):
+    name = models.CharField(max_length=500)
+    descriptions = models.TextField()
