@@ -1,5 +1,5 @@
 from django.db import models
-from service.models.service_company import Service_Company
+from service.models.Service_Company import Service_Company
 
 
 class Machine(models.Model):

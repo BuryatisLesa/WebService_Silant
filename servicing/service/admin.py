@@ -1,5 +1,5 @@
 from django.contrib import admin
-from service.models.mashine import (
+from service.models.Mashine import (
     Machine,
     Model_Machine,
     Model_Engine,
@@ -8,7 +8,7 @@ from service.models.mashine import (
     Model_Transmission
 )
 
-from service.models.service_company import Service_Company
+from service.models.Service_Company import Service_Company
 
 
 admin.site.register(Machine)
