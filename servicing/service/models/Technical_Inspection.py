@@ -1,5 +1,5 @@
 from django.db import models
-from service.models.service_company import Service_Company
+from service.models.service_company import ServiceCompany
 from service.models.mashine import Machine
 
 
@@ -19,7 +19,7 @@ class TechnicalInspection(models.Model):
     date_order = models.DateField()
 
     service_company = models.ForeignKey(
-        Service_Company,
+        ServiceCompany,
         on_delete=models.CASCADE,
         related_name="technical_inspections"
     )
