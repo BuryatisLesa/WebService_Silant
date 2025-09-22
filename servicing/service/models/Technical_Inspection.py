@@ -1,15 +1,16 @@
 from django.db import models
-from service.models.Service_Company import Service_Company
-from service.models.Mashine import Machine
+from service.models.service_company import Service_Company
+from service.models.mashine import Machine
 
-class Technical_Inspection(models.Model):
-    type_TI = models.ForeignKey(
-        "Type_TI",
+
+class TechnicalInspection(models.Model):
+    type_ti = models.ForeignKey(
+        "TypeTI",
         on_delete=models.CASCADE,
-        related_name="technical_incpection"
-        )
-    
-    date_service = models.DateTimeField(auto_now=True)
+        related_name="technical_inspections"
+    )
+
+    date_service = models.DateField()
 
     running_hours = models.IntegerField(default=0)
 
@@ -20,14 +21,16 @@ class Technical_Inspection(models.Model):
     service_company = models.ForeignKey(
         Service_Company,
         on_delete=models.CASCADE,
-        related_name="service_company")
-    
+        related_name="technical_inspections"
+    )
+
     machine = models.ForeignKey(
         Machine,
         on_delete=models.CASCADE,
-        related_name="ti_by_machine")
+        related_name="technical_inspections"
+    )
 
 
-class Type_TI(models.Model):
+class TypeTI(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()

@@ -1,7 +1,7 @@
 from django.db import models
 
-from service.models.Mashine import Machine
-from service.models.Service_Company import Service_Company
+from service.models.mashine import Machine
+from service.models.service_company import ServiceCompany
 
 
 class Complaint(models.Model):
@@ -11,17 +11,17 @@ class Complaint(models.Model):
     running_hours = models.IntegerField(default=0)
 
     failed_unit = models.ForeignKey(
-        "Failed_Unit",
+        "FailedUnit",
         on_delete=models.CASCADE,
-        related_name="complaint_failed_unit"
+        related_name="complaint"
     )
     
     description_failed = models.TextField()
 
     method_restoration = models.ForeignKey(
-        "Method_Restoration",
+        "MethodRestoration",
         on_delete=models.CASCADE,
-        related_name="complaint_method_restoration"
+        related_name="complaint"
     )
     spare_parts_usage = models.CharField(max_length=500)
 
@@ -32,22 +32,22 @@ class Complaint(models.Model):
     machine = models.ForeignKey(
         Machine,
         on_delete=models.CASCADE,
-        related_name="complaint_machine"
+        related_name="complaint"
     )
 
     service_company = models.ForeignKey(
-        Service_Company,
+        ServiceCompany,
         on_delete=models.CASCADE,
-        related_name="complaint_service_company"
+        related_name="complaint"
     )
     
 
 
-class Failed_Unit(models.Model):
+class FailedUnit(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
 
-class Method_Restoration(models.Model):
+class MethodRestoration(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()

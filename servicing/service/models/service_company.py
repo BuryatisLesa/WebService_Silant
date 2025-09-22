@@ -1,5 +1,5 @@
 from django.db import models
 
-class Service_Company(models.Model):
+class ServiceCompany(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()

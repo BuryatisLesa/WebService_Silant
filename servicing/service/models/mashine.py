@@ -1,37 +1,37 @@
 from django.db import models
-from service.models.Service_Company import Service_Company
+from service.models.service_company import ServiceCompany
 
 
 class Machine(models.Model):
     unique_machine_number = models.CharField(max_length=500, unique=True)
 
     model_machine = models.ForeignKey(
-        "Model_Machine",
+        "ModelMachine",
         on_delete=models.CASCADE,
-        related_name="machines_by_model"
+        related_name="machines"
     )
 
     model_engine = models.ForeignKey(
-        "Model_Engine",
+        "ModelEngine",
         on_delete=models.CASCADE,
-        related_name="machines_by_engine"
+        related_name="machines"
     )
 
     number_engine = models.CharField(max_length=500)
 
     model_transmission = models.ForeignKey(
-        "Model_Transmission",
+        "ModelTransmission",
         on_delete=models.CASCADE,
-        related_name="machines_by_transmission"
+        related_name="machines"
     )
 
     number_transmission = models.CharField(max_length=500)
 
     #Модель ведущего моста
     model_drive_axle = models.ForeignKey(
-        "Model_Drive_Axle",
+        "ModelDriveAxle",
         on_delete=models.CASCADE,
-        related_name="machines_by_drive_axle"
+        related_name="machines"
     )
     
 
@@ -39,9 +39,9 @@ class Machine(models.Model):
 
     #Модель управляемого моста
     model_steer_axle = models.ForeignKey(
-        "Model_Streer_Axle",
+        "ModelStreerAxle",
         on_delete=models.CASCADE,
-        related_name="machines_by_drive_axle"
+        related_name="machines"
     )
 
     number_steer_axle = models.CharField(max_length=500)
@@ -60,31 +60,31 @@ class Machine(models.Model):
     client = models.CharField(max_length=500)
 
     service_company = models.ForeignKey(
-        Service_Company,
+        ServiceCompany,
         on_delete=models.CASCADE,
-        related_name="machines_by_service"
+        related_name="machines"
     )
 
 
 
 #Справочники
 
-class Model_Machine(models.Model):
+class ModelMachine(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Engine(models.Model):
+class ModelEngine(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Transmission(models.Model):
+class ModelTransmission(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Drive_Axle(models.Model):
+class ModelDriveAxle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class Model_Streer_Axle(models.Model):
+class ModelStreerAxle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
