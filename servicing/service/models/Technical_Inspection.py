@@ -1,6 +1,6 @@
 from django.db import models
 from service.models.service_company import ServiceCompany
-from service.models.mashine import Machine
+from servicing.service.models.machine import Machine
 
 
 class TechnicalInspection(models.Model):

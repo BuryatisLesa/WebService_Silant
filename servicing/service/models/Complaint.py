@@ -1,6 +1,6 @@
 from django.db import models
 
-from service.models.mashine import Machine
+from servicing.service.models.machine import Machine
 from service.models.service_company import ServiceCompany
 
 
@@ -27,8 +27,6 @@ class Complaint(models.Model):
 
     date_restoration = models.DateField()
 
-    time_stop_machine = date_restoration - date_failure
-
     machine = models.ForeignKey(
         Machine,
         on_delete=models.CASCADE,
@@ -40,6 +38,10 @@ class Complaint(models.Model):
         on_delete=models.CASCADE,
         related_name="complaint"
     )
+
+    @property
+    def time_stop_mashine(self):
+        return (self.date_restoration - self.date_failure).days
     
 
 
