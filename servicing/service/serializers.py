@@ -39,7 +39,7 @@ class ModelStreerAxleSerializer(serializers.ModelSerializer):
         model = ModelStreerAxle
         fields = "__all__"
 
-class ModelStreerAxleSerializer(serializers.ModelSerializer):
+class ModelTransmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelTransmission
         fields = "__all__"
