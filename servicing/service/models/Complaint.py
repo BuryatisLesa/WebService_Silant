@@ -1,6 +1,6 @@
 from django.db import models
 
-from servicing.service.models.machine import Machine
+from service.models.machine import Machine
 from service.models.service_company import ServiceCompany
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from servicing.service.models.machine import (
+from service.models.machine import (
     Machine,
     ModelMachine,
     ModelEngine,
