@@ -55,7 +55,7 @@ def technical_inspection_update(request, id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["DELETE"])
-def techical_inspection_delete(requset, id):
+def techical_inspection_delete(request, id):
     techical_inspection = get_object_or_404(TechnicalInspection, id=id)
     techical_inspection.delete()
     return Response(
