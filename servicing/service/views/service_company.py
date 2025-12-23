@@ -11,6 +11,7 @@ from service.serializers import ServiceCompanySerializer
 
 @api_view(["GET", "POST"])
 def service_company_list_create(request):
+    """список сервисных компаний и создание записи """
     if request.method == "GET":
         service_companies = ServiceCompany.objects.all()
         serializer = ServiceCompanySerializer(service_companies, many=True)
@@ -26,6 +27,7 @@ def service_company_list_create(request):
 
 @api_view(["GET"])
 def service_company_detail(request, id):
+    """подробности о сервисной компании """
     service_company = get_object_or_404(ServiceCompany, id=id)
     serializer = ServiceCompanySerializer(service_company)
     return Response(serializer.data)
@@ -33,6 +35,7 @@ def service_company_detail(request, id):
 
 @api_view(["PUT"])
 def service_company_update(request, id):
+    """обновление данных сервисной компании"""
     service_company = get_object_or_404(ServiceCompany, id=id)
     serializer = ServiceCompanySerializer(
         instance=service_company,
@@ -48,6 +51,7 @@ def service_company_update(request, id):
 
 @api_view(["DELETE"])
 def service_company_delete(request, id):
+    """удаление записи о сервисной компании"""
     service_company = get_object_or_404(ServiceCompany, id=id)
     service_company.delete()
     return Response(

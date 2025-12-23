@@ -11,6 +11,7 @@ from service.serializers import FailedUnitSerializer
 
 @api_view(["GET", "POST"])
 def failed_unit_list_create(request):
+    """все узлы отказа и создание узла"""
     if request.method == "GET":
         failed_units = FailedUnit.objects.all()
         serializer = FailedUnitSerializer(failed_units, many=True)
@@ -25,12 +26,14 @@ def failed_unit_list_create(request):
     
 @api_view(["GET"])
 def failed_unit_detail(request, id):
+    """детали узла отказа"""
     failed_unit = get_object_or_404(FailedUnit, id=id)
     serializer = FailedUnitSerializer(failed_unit)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def failed_unit_update(request, id):
+    """обновление узла отказа"""
     failed_unit = get_object_or_404(FailedUnit, id=id)
     serializer = FailedUnitSerializer(
         instance = failed_unit,
@@ -44,6 +47,7 @@ def failed_unit_update(request, id):
 
 @api_view(["DELETE"])
 def failed_unit_delete(request, id):
+    """удалить узел отказа"""
     failed_unit = get_object_or_404(FailedUnit, id=id)
     failed_unit.delete()
     return Response(

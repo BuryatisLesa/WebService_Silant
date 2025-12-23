@@ -11,6 +11,7 @@ from service.serializers import ModelMachineSerializer
 
 @api_view(["GET", "POST"])
 def model_machine_list_create(request):
+    """Получение списка моделей машины и создание модель машины"""
     if request.method == "GET":
         model_machines = ModelMachine.objects.all()
         serializer = ModelMachineSerializer(model_machines, many=True)
@@ -25,12 +26,14 @@ def model_machine_list_create(request):
     
 @api_view(["GET"])
 def model_machine_detail(request, id):
+    """Получение одной конкретной модели машины"""
     model_machine = get_object_or_404(ModelMachine, id=id)
     serializer = ModelMachineSerializer(model_machine)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def model_machine_update(request, id):
+    """Изменение/обновление модели машины"""
     model_machine = get_object_or_404(ModelMachine, id=id)
     serializer = ModelMachineSerializer(
         instance = model_machine,
@@ -44,6 +47,7 @@ def model_machine_update(request, id):
 
 @api_view(["DELETE"])
 def model_machine_delete(request, id):
+    """удаление модели машины"""
     model_machine = get_object_or_404(ModelMachine, id=id)
     model_machine.delete()
     return Response(

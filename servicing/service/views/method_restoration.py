@@ -11,6 +11,7 @@ from service.serializers import MethodRestorationSerializer
 
 @api_view(["GET", "POST"])
 def method_restoration_list_create(request):
+    """получение списка восстановление и создание записи о восстановление"""
     if request.method == "GET":
         method_restorations = MethodRestoration.objects.all()
         serializer = MethodRestorationSerializer(method_restorations, many=True)
@@ -25,12 +26,14 @@ def method_restoration_list_create(request):
     
 @api_view(["GET"])
 def method_restoration_detail(request, id):
+    """подробности способа восстановления"""
     method_restoration = get_object_or_404(MethodRestoration, id=id)
     serializer = MethodRestorationSerializer(method_restoration)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def method_restoration_update(request, id):
+    """обновление данных о способе восстановления"""
     method_restoration = get_object_or_404(MethodRestoration, id=id)
     serializer = MethodRestorationSerializer(
         instance = method_restoration,
@@ -44,6 +47,7 @@ def method_restoration_update(request, id):
 
 @api_view(["DELETE"])
 def method_restoration_delete(request, id):
+    """удаление записи о восстановление"""
     method_restoration = get_object_or_404(MethodRestoration, id=id)
     method_restoration.delete()
     return Response(

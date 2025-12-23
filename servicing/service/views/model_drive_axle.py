@@ -11,6 +11,7 @@ from service.serializers import ModelDriveAxleSerializer
 
 @api_view(["GET", "POST"])
 def model_drive_axle_list_create(request):
+    """список ведущих мостов и создание записи"""
     if request.method == "GET":
         model_drive_axles = ModelDriveAxle.objects.all()
         serializer = ModelDriveAxleSerializer(model_drive_axles, many=True)
@@ -25,12 +26,14 @@ def model_drive_axle_list_create(request):
     
 @api_view(["GET"])
 def model_drive_axle_detail(request, id):
+    """подробности ведущего моста"""
     model_drive_axle = get_object_or_404(ModelDriveAxle, id=id)
     serializer = ModelDriveAxleSerializer(model_drive_axle)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def model_drive_axle_update(request, id):
+    """обновление данных ведущего моста"""
     model_drive_axle = get_object_or_404(ModelDriveAxle, id=id)
     serializer = ModelDriveAxleSerializer(
         instance = model_drive_axle,
@@ -44,6 +47,7 @@ def model_drive_axle_update(request, id):
 
 @api_view(["DELETE"])
 def model_drive_axle_delete(request, id):
+    """удаление ведущего моста"""
     model_drive_axle = get_object_or_404(ModelDriveAxle, id=id)
     model_drive_axle.delete()
     return Response(

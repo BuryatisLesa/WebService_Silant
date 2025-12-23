@@ -11,6 +11,7 @@ from service.serializers import ModelTransmissionSerializer
 
 @api_view(["GET", "POST"])
 def model_transmission_list_create(request):
+    """список трансмиссий и создание записи"""
     if request.method == "GET":
         model_transmissions = ModelTransmission.objects.all()
         serializer = ModelTransmissionSerializer(model_transmissions, many=True)
@@ -25,12 +26,14 @@ def model_transmission_list_create(request):
     
 @api_view(["GET"])
 def model_transmission_detail(request, id):
+    """подробности трансмиссии"""
     model_transmission = get_object_or_404(ModelTransmission, id=id)
     serializer = ModelTransmissionSerializer(model_transmission)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def model_transmission_update(request, id):
+    """обновление данных о трансмиссии"""
     model_transmission = get_object_or_404(ModelTransmission, id=id)
     serializer = ModelTransmissionSerializer(
         instance = model_transmission,
@@ -44,6 +47,7 @@ def model_transmission_update(request, id):
 
 @api_view(["DELETE"])
 def model_transmission_delete(request, id):
+    """удаление трансмиссии"""
     model_transmission = get_object_or_404(ModelTransmission, id=id)
     model_transmission.delete()
     return Response(

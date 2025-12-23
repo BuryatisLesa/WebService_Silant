@@ -11,6 +11,7 @@ from service.serializers import ModelStreerAxleSerializer
 
 @api_view(["GET", "POST"])
 def model_streer_axle_list_create(request):
+    """список модели управляемого моста и создание записи"""
     if request.method == "GET":
         model_streer_axles = ModelStreerAxle.objects.all()
         serializer = ModelStreerAxleSerializer(model_streer_axles, many=True)
@@ -25,12 +26,14 @@ def model_streer_axle_list_create(request):
     
 @api_view(["GET"])
 def model_streer_axle_detail(request, id):
+    """подробности управляемого моста"""
     model_streer_axle = get_object_or_404(ModelStreerAxle, id=id)
     serializer = ModelStreerAxleSerializer(model_streer_axle)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def model_streer_axle_update(request, id):
+    """обновление данных управляемого моста"""
     model_streer_axle = get_object_or_404(ModelStreerAxle, id=id)
     serializer = ModelStreerAxleSerializer(
         instance = model_streer_axle,
@@ -44,6 +47,7 @@ def model_streer_axle_update(request, id):
 
 @api_view(["DELETE"])
 def model_streer_axle_delete(request, id):
+    """удаление записи управляемого моста"""
     model_streer_axle = get_object_or_404(ModelStreerAxle, id=id)
     model_streer_axle.delete()
     return Response(

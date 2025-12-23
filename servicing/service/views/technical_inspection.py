@@ -13,6 +13,7 @@ from service.serializers import TechnicalInspectionSerializer
 
 @api_view(["GET", "POST"])
 def technical_inspection_list_create(request):
+    """список ТО и создание записи"""
     if request.method == "GET":
         technical_inspections = TechnicalInspection.objects.all()
         serializer = TechnicalInspectionSerializer(
@@ -36,6 +37,7 @@ def technical_inspection_list_create(request):
 
 @api_view(["GET"])
 def technical_inspection_detail(request, id):
+    """подробности ТО"""
     technical_inspection = get_object_or_404(TechnicalInspection, id=id)
     serializer = TechnicalInspectionSerializer(technical_inspection)
     return Response(serializer.data)
@@ -43,6 +45,7 @@ def technical_inspection_detail(request, id):
 
 @api_view(["PUT"])
 def technical_inspection_update(request, id):
+    """обновление ТО"""
     technical_inspection = get_object_or_404(TechnicalInspection, id=id)
     serializer = TechnicalInspectionSerializer(
         instance = technical_inspection,
@@ -56,6 +59,7 @@ def technical_inspection_update(request, id):
     
 @api_view(["DELETE"])
 def techical_inspection_delete(request, id):
+    """удаление ТО"""
     techical_inspection = get_object_or_404(TechnicalInspection, id=id)
     techical_inspection.delete()
     return Response(

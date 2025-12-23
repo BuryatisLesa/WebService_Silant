@@ -10,6 +10,7 @@ from service.serializers import ComplaintSerializer
 
 @api_view(["GET", "POST"])
 def complaint_list_create(request):
+    """Все заявки(рекламации) и создание заявки"""
     if request.method == "GET":
         complaints = Complaint.objects.all()
         serializer = ComplaintSerializer(
@@ -31,6 +32,7 @@ def complaint_list_create(request):
 
 @api_view(["GET"])
 def complaint_detail(request, id):
+    """подробности заявки"""
     complaint = get_object_or_404(Complaint, id=id)
     serializer = ComplaintSerializer(complaint)
     return Response(serializer.data)
@@ -38,6 +40,7 @@ def complaint_detail(request, id):
 
 @api_view(["PUT"])
 def complaint_update(request, id):
+    """обновление заявки"""
     complaint = get_object_or_404(Complaint, id=id)
     serializer = ComplaintSerializer(
         complaint,
@@ -55,6 +58,7 @@ def complaint_update(request, id):
 
 @api_view(["DELETE"])
 def complaint_delete(request, id):
+    """удаление заявки"""
     complaint = get_object_or_404(Complaint, id=id)
     complaint.delete()
     return Response(

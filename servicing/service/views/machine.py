@@ -12,6 +12,7 @@ from service.serializers import (
 
 @api_view(["GET", "POST"])
 def machine_list_create(request):
+    """получение машин и создание машины"""
     if request.method == "GET":
         machines = Machine.objects.all()
         serializer = MachineSerializer(machines, many=True)
@@ -27,12 +28,14 @@ def machine_list_create(request):
 
 @api_view(["GET"])
 def machine_detail(request, id):
+    """подробности машины"""
     machine = get_object_or_404(Machine, id=id)
     serializer = MachineSerializer(machine)
     return Response(serializer.data)
 
 @api_view(["PUT"])
 def machine_update(request, id):
+    """обновление данных о машине"""
     machine = get_object_or_404(Machine, id=id)
     serializer = MachineSerializer(instance=machine, data=request.data, partial=True)  
     if serializer.is_valid():
@@ -43,6 +46,7 @@ def machine_update(request, id):
 
 @api_view(["DELETE"])
 def machine_delete(request, id):
+    """удаление записи машины"""
     machine = get_object_or_404(Machine, id=id)
     machine.delete()
     return Response(
