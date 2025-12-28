@@ -6,18 +6,12 @@ from service.models.machine import (
     ModelEngine,
     ModelDriveAxle,
     ModelMachine,
-    ModelStreerAxle,
+    ModelSteerAxle,
     ModelTransmission,
     )
 from service.models.complaint import Complaint, FailedUnit, MethodRestoration
 from service.models.service_company import ServiceCompany
 from service.models.technical_inspection import TechnicalInspection, TypeTI
-
-
-class MachineSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Machine
-        fields = "__all__"
 
 class ModelEngineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,9 +28,9 @@ class ModelMachineSerializer(serializers.ModelSerializer):
         model = ModelMachine
         fields = "__all__"
 
-class ModelStreerAxleSerializer(serializers.ModelSerializer):
+class ModelSteerAxleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ModelStreerAxle
+        model = ModelSteerAxle
         fields = "__all__"
 
 class ModelTransmissionSerializer(serializers.ModelSerializer):
@@ -75,4 +69,18 @@ class TypeTISerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class MachineSerializer(serializers.ModelSerializer):
+    
+    model_machine = ModelMachineSerializer()
+    model_engine = ModelEngineSerializer()
+    model_transmission = ModelTransmissionSerializer()
+    model_drive_axle = ModelDriveAxleSerializer()
+    model_steer_axle = ModelSteerAxleSerializer()
+    service_company = ServiceCompanySerializer()
+
+    class Meta:
+        model = Machine
+        fields = "__all__"
+        # позволяет изменять и создавать записи
+        depth = 1
 
