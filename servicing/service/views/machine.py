@@ -14,7 +14,14 @@ from service.serializers import (
 def machine_list_create(request):
     """получение машин и создание машины"""
     if request.method == "GET":
-        machines = Machine.objects.all()
+        # Получаем значение search
+        search_query = request.query_params.get("search", None)
+
+        # Фильтруем данные, если search_query есть
+        if search_query:
+            machines = Machine.objects.filter(unique_machine_number__icontains=search_query)
+        else:
+            machines = Machine.objects.all()    
         serializer = MachineSerializer(machines, many=True)
         return Response(serializer.data)
 

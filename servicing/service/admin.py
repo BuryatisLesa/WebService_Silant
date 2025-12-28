@@ -4,7 +4,7 @@ from service.models.machine import (
     ModelMachine,
     ModelEngine,
     ModelDriveAxle,
-    ModelStreerAxle,
+    ModelSteerAxle,
     ModelTransmission
 )
 
@@ -15,6 +15,6 @@ admin.site.register(Machine)
 admin.site.register(ModelMachine)
 admin.site.register(ModelEngine)
 admin.site.register(ModelDriveAxle)
-admin.site.register(ModelStreerAxle)
+admin.site.register(ModelSteerAxle)
 admin.site.register(ModelTransmission)
 admin.site.register(ServiceCompany)

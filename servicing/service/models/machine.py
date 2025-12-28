@@ -39,31 +39,28 @@ class Machine(models.Model):
 
     #Модель управляемого моста
     model_steer_axle = models.ForeignKey(
-        "ModelStreerAxle",
+        "ModelSteerAxle",
         on_delete=models.CASCADE,
         related_name="machines"
     )
 
     number_steer_axle = models.CharField(max_length=500)
-
     number_supply_contract = models.CharField(max_length=500)
-
     date_shipment_with_factory = models.DateTimeField(auto_now_add=True)
 
     #Грузополучатель
     cargo_recipient = models.CharField(max_length=500)
-
     delivery_address = models.CharField(max_length=1000)
-
     configuration = models.CharField(max_length=500)
-
     client = models.CharField(max_length=500)
-
     service_company = models.ForeignKey(
         ServiceCompany,
         on_delete=models.CASCADE,
         related_name="machines"
     )
+
+    def __str__(self):
+        return f"{self.model_machine.name} (№ {self.unique_machine_number})"
 
 
 
@@ -85,6 +82,6 @@ class ModelDriveAxle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
 
-class ModelStreerAxle(models.Model):
+class ModelSteerAxle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
