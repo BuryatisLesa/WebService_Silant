@@ -1,11 +1,14 @@
-import styles from './style.module.css'
+import { Link } from 'react-router-dom';
 
-import {JSX} from "react";
-
-
-
-function Header(): JSX.Element {
+ export function Header(){
     return (
-        
+        <header>
+        <Link to="/registration">
+            <button>Регистрация</button>
+        </Link>
+        <Link to="/login">
+            <button>Авторизация</button>
+        </Link>
+        </header>
     )
 }

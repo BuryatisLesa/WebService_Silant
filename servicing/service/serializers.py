@@ -9,6 +9,7 @@ from service.models.machine import (
     ModelSteerAxle,
     ModelTransmission,
     )
+
 from service.models.complaint import Complaint, FailedUnit, MethodRestoration
 from service.models.service_company import ServiceCompany
 from service.models.technical_inspection import TechnicalInspection, TypeTI
@@ -70,7 +71,7 @@ class TypeTISerializer(serializers.ModelSerializer):
 
 
 class MachineSerializer(serializers.ModelSerializer):
-    
+
     model_machine = ModelMachineSerializer()
     model_engine = ModelEngineSerializer()
     model_transmission = ModelTransmissionSerializer()
@@ -83,4 +84,8 @@ class MachineSerializer(serializers.ModelSerializer):
         fields = "__all__"
         # позволяет изменять и создавать записи
         depth = 1
+
+
+
+
 
