@@ -1,6 +1,5 @@
-
-
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
@@ -12,15 +11,18 @@ from service.serializers import TechnicalInspectionSerializer
 
 
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def technical_inspection_list_create(request):
-    """список ТО и создание записи"""
     if request.method == "GET":
-        technical_inspections = TechnicalInspection.objects.all()
-        serializer = TechnicalInspectionSerializer(
-            technical_inspections,
-            many=True)
+        # Получаем пользователя из токена (request.user)
+        user = request.user
         
+        # Фильтруем ТО: ищем записи, где клиент связан с этим пользователем
+        # client__user — это путь через модель Client к модели User
+        technical_inspections = TechnicalInspection.objects.filter(machine__client__user = user)
+        serializer = TechnicalInspectionSerializer(technical_inspections, many=True)
         return Response(serializer.data)
+
     
     if request.method == "POST":
         serializer = TechnicalInspectionSerializer(

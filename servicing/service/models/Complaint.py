@@ -40,8 +40,10 @@ class Complaint(models.Model):
     )
 
     @property
-    def time_stop_mashine(self):
-        return (self.date_restoration - self.date_failure).days
+    def time_stop(self):
+        if self.date_restoration and self.date_failure:
+            return (self.date_restoration - self.date_failure).days
+        return 0
     
 
 

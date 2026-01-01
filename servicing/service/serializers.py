@@ -39,11 +39,6 @@ class ModelTransmissionSerializer(serializers.ModelSerializer):
         model = ModelTransmission
         fields = "__all__"
 
-class ComplaintSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Complaint
-        fields = "__all__"
-
 class FailedUnitSerializer(serializers.ModelSerializer):
     class Meta:
         model = FailedUnit
@@ -59,19 +54,13 @@ class ServiceCompanySerializer(serializers.ModelSerializer):
         model = ServiceCompany
         fields = "__all__"
 
-class TechnicalInspectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TechnicalInspection
-        fields = "__all__"
-
 class TypeTISerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeTI
         fields = "__all__"
 
-
 class MachineSerializer(serializers.ModelSerializer):
-
+    
     model_machine = ModelMachineSerializer()
     model_engine = ModelEngineSerializer()
     model_transmission = ModelTransmissionSerializer()
@@ -85,7 +74,28 @@ class MachineSerializer(serializers.ModelSerializer):
         # позволяет изменять и создавать записи
         depth = 1
 
+class TechnicalInspectionSerializer(serializers.ModelSerializer):
+
+    type_ti = TypeTISerializer()
+    service_company = ServiceCompanySerializer()
+    machine = MachineSerializer()
+    
+    class Meta:
+        model = TechnicalInspection
+        fields = "__all__"
+        depth = 1
 
 
+class ComplaintSerializer(serializers.ModelSerializer):
 
+    time_stop = serializers.ReadOnlyField()
+    failed_unit = FailedUnitSerializer()
+    method_restoration = MethodRestoration()
+    machine = MachineSerializer()
+    service_company = ServiceCompanySerializer()
+
+    class Meta:
+        model = Complaint
+        fields = "__all__"
+        depth = 1
 

@@ -1,5 +1,6 @@
 from django.db import models
 from service.models.service_company import ServiceCompany
+from django.contrib.auth.models import User
 
 
 class Machine(models.Model):
@@ -52,7 +53,7 @@ class Machine(models.Model):
     cargo_recipient = models.CharField(max_length=500)
     delivery_address = models.CharField(max_length=1000)
     configuration = models.CharField(max_length=500)
-    client = models.CharField(max_length=500)
+    client = models.ForeignKey('Client', on_delete=models.CASCADE, related_name='clients_machine')
     service_company = models.ForeignKey(
         ServiceCompany,
         on_delete=models.CASCADE,
@@ -85,3 +86,22 @@ class ModelDriveAxle(models.Model):
 class ModelSteerAxle(models.Model):
     name = models.CharField(max_length=500)
     descriptions = models.TextField()
+
+
+class Client(models.Model):
+    class RoleChoices(models.TextChoices):
+        CLIENT = "client", "Клиент"
+        SERVICE_COMPANY = "service_company", "Сервисная компания"
+        MANAGER = "manager", "Менеджер"
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client_profile')
+    
+    role = models.CharField(
+        max_length=20,
+        choices=RoleChoices.choices,
+        default=RoleChoices.CLIENT,
+        verbose_name="Роль"
+    )
+
+    def __str__(self):
+        return f"{self.user.username} ({self.get_role_display()})"

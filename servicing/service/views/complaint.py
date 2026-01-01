@@ -1,5 +1,6 @@
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
@@ -9,14 +10,17 @@ from service.serializers import ComplaintSerializer
 
 
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def complaint_list_create(request):
     """Все заявки(рекламации) и создание заявки"""
     if request.method == "GET":
-        complaints = Complaint.objects.all()
-        serializer = ComplaintSerializer(
-            complaints,
-            many= True,
-        )
+        # Получаем пользователя из токена (request.user)
+        user = request.user
+        
+        # Фильтруем ТО: ищем записи, где клиент связан с этим пользователем
+        # client__user — это путь через модель Client к модели User
+        queryset = Complaint.objects.filter(machine__client__user = user)
+        serializer = ComplaintSerializer(queryset, many=True)
         return Response(serializer.data)
     
     if request.method == "POST":
