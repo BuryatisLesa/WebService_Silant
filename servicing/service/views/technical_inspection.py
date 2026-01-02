@@ -45,10 +45,15 @@ def technical_inspection_detail(request, id):
     return Response(serializer.data)
 
 
-@api_view(["PUT"])
+@api_view(["PUT", "PATCH"])
+@permission_classes([IsAuthenticated])
 def technical_inspection_update(request, id):
     """обновление ТО"""
-    technical_inspection = get_object_or_404(TechnicalInspection, id=id)
+    technical_inspection = get_object_or_404(
+        TechnicalInspection,
+        id=id,
+        machine__client__user = request.user)
+    
     serializer = TechnicalInspectionSerializer(
         instance = technical_inspection,
         data = request.data,

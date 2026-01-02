@@ -60,7 +60,7 @@ class TypeTISerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class MachineSerializer(serializers.ModelSerializer):
-    
+
     model_machine = ModelMachineSerializer()
     model_engine = ModelEngineSerializer()
     model_transmission = ModelTransmissionSerializer()
@@ -75,27 +75,35 @@ class MachineSerializer(serializers.ModelSerializer):
         depth = 1
 
 class TechnicalInspectionSerializer(serializers.ModelSerializer):
+    # Поля для ОТОБРАЖЕНИЯ (read_only=True)
+    # Эти данные будут приходить в React для показа в таблице
+    type_ti_info = TypeTISerializer(source='type_ti', read_only=True)
+    service_company_info = ServiceCompanySerializer(source='service_company', read_only=True)
+    machine_info = MachineSerializer(source='machine', read_only=True)
 
-    type_ti = TypeTISerializer()
-    service_company = ServiceCompanySerializer()
-    machine = MachineSerializer()
-    
     class Meta:
         model = TechnicalInspection
-        fields = "__all__"
-        depth = 1
+        fields = [
+            'id', 'date_service', 'running_hours', 'order', 'date_order',
+            'type_ti', 'service_company', 'machine', # Поля для ЗАПИСИ (принимают ID)
+            'type_ti_info', 'service_company_info', 'machine_info' # Поля для ЧТЕНИЯ
+        ]
 
 
 class ComplaintSerializer(serializers.ModelSerializer):
-
     time_stop = serializers.ReadOnlyField()
-    failed_unit = FailedUnitSerializer()
-    method_restoration = MethodRestoration()
-    machine = MachineSerializer()
-    service_company = ServiceCompanySerializer()
+    failed_unit_info = FailedUnitSerializer(source='failed_unit', read_only=True)
+    method_restoration_info = MethodRestorationSerializer(source='method_restoration', read_only=True)
+    machine_info = MachineSerializer(source='machine', read_only=True)
+    service_company_info = ServiceCompanySerializer(source='service_company', read_only=True)
 
     class Meta:
         model = Complaint
-        fields = "__all__"
-        depth = 1
+        fields = [
+            'id', 'date_failure', 'running_hours', 'description_failed', 
+            'spare_parts_usage', 'date_restoration', 'time_stop',
+            'failed_unit', 'method_restoration', 'machine', 'service_company', # Для ЗАПИСИ (ID)
+            'failed_unit_info', 'method_restoration_info', 'machine_info', 'service_company_info' # Для ЧТЕНИЯ
+        ]
+
 
