@@ -60,19 +60,28 @@ class TypeTISerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class MachineSerializer(serializers.ModelSerializer):
-
-    model_machine = ModelMachineSerializer()
-    model_engine = ModelEngineSerializer()
-    model_transmission = ModelTransmissionSerializer()
-    model_drive_axle = ModelDriveAxleSerializer()
-    model_steer_axle = ModelSteerAxleSerializer()
-    service_company = ServiceCompanySerializer()
+    # Поля для ОТОБРАЖЕНИЯ (только чтение)
+    model_machine_info = ModelMachineSerializer(source='model_machine', read_only=True)
+    model_engine_info = ModelEngineSerializer(source='model_engine', read_only=True)
+    model_transmission_info = ModelTransmissionSerializer(source='model_transmission', read_only=True)
+    model_drive_axle_info = ModelDriveAxleSerializer(source='model_drive_axle', read_only=True)
+    model_steer_axle_info = ModelSteerAxleSerializer(source='model_steer_axle', read_only=True)
+    service_company_info = ServiceCompanySerializer(source='service_company', read_only=True)
 
     class Meta:
         model = Machine
-        fields = "__all__"
-        # позволяет изменять и создавать записи
-        depth = 1
+        # Указываем все поля. Оригинальные поля (без _info) будут принимать ID при записи.
+        fields = [
+            'id', 'unique_machine_number', 'number_engine', 'number_transmission', 
+            'number_drive_axle', 'number_steer_axle', 'number_supply_contract', 
+            'date_shipment_with_factory', 'cargo_recipient', 'delivery_address', 
+            'configuration', 'client', 'service_company', 'model_machine', 
+            'model_engine', 'model_transmission', 'model_drive_axle', 'model_steer_axle',
+            # Информационные поля
+            'model_machine_info', 'model_engine_info', 'model_transmission_info',
+            'model_drive_axle_info', 'model_steer_axle_info', 'service_company_info'
+        ]
+
 
 class TechnicalInspectionSerializer(serializers.ModelSerializer):
     # Поля для ОТОБРАЖЕНИЯ (read_only=True)
