@@ -11,6 +11,13 @@ from service.models.machine import (
 
 from service.models.technical_inspection import (
     TechnicalInspection,
+    TypeTI,
+)
+
+from service.models.complaint import (
+    Complaint,
+    FailedUnit,
+    MethodRestoration,
 )
 
 from service.models.service_company import ServiceCompany
@@ -25,3 +32,7 @@ admin.site.register(ModelTransmission)
 admin.site.register(ServiceCompany)
 admin.site.register(Client)
 admin.site.register(TechnicalInspection)
+admin.site.register(TypeTI)
+admin.site.register(Complaint)
+admin.site.register(FailedUnit)
+admin.site.register(MethodRestoration)
