@@ -2,9 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import Main from './components/Main'
 import { Header } from './components/Header'
-import Registration  from './components/Registration'
 import Login  from './components/Login'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DetailMachine from './components/DetailMachine'
+import DetailModelMachine from './components/DetailModelMachine'
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/machines/:id" element={<DetailMachine/>} />
+        <Route path="/machines/:id" element={<DetailMachine/>} />
+        <Route path="/model_machines/:id" element={<DetailModelMachine/>} />
       </Routes>
     </BrowserRouter>
   )

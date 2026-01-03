@@ -23,10 +23,14 @@ function Login() {
             password: userPassword
             };
         accountsService.authorization(dataUser).then((response) => {
+
             console.log("Пользователь авторизован", response.data)
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", response.data.username);
+            localStorage.setItem("role", response.data.role);
             alert("Успешный вход");
             navigate('/');
+
         }).catch((err => {
                 const errorMessage = err.response?.data?.[0] || "Ошибка авторизации";
                 console.error("Ошибка:", err);
