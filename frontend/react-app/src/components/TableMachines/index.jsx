@@ -284,7 +284,11 @@ export function TableMachines({ data }) {
                                 {/* № Зав.трансмиссии */}
                                 <td>{machine.number_transmission}</td>
                                 {/* Модель управляемого моста */}
-                                <td>{machine.model_drive_axle_info?.name}</td>
+                                <td>
+                                    <Link to={`/model_drive_axles/${machine.model_drive_axle}`}>
+                                        {machine.model_drive_axle_info?.name}
+                                    </Link>
+                                </td>
                                 {/* № Зав.управляемого моста */}
                                 <td>{machine.number_drive_axle}</td>
                                 {/* Модель ведущего моста */}

@@ -8,6 +8,7 @@ import DetailMachine from './components/DetailMachine'
 import DetailModelMachine from './components/DetailModelMachine'
 import DetailModelEngine from './components/DetailModelEngine'
 import DetailModelTransmission from './components/DetailModelTransmission'
+import DetailModelDriveAxle from './components/DetailModelDriveAxle'
 
 function App() {
   return (
@@ -20,9 +21,10 @@ function App() {
         <Route path="/model_machines/:id" element={<DetailModelMachine/>} />
         <Route path="/model_engines/:id" element={<DetailModelEngine/>} />
         <Route path="/model_transmissions/:id" element={<DetailModelTransmission/>} />
+        <Route path="/model_drive_axles/:id" element={<DetailModelDriveAxle/>} />
       </Routes>
     </BrowserRouter>
   )
 }
 
-export default App
+export default App;
