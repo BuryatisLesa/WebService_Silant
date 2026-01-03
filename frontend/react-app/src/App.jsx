@@ -6,6 +6,7 @@ import Login  from './components/Login'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DetailMachine from './components/DetailMachine'
 import DetailModelMachine from './components/DetailModelMachine'
+import DetailModelEngine from './components/DetailModelEngine'
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/machines/:id" element={<DetailMachine/>} />
-        <Route path="/machines/:id" element={<DetailMachine/>} />
         <Route path="/model_machines/:id" element={<DetailModelMachine/>} />
+        <Route path="/model_engines/:id" element={<DetailModelEngine/>} />
       </Routes>
     </BrowserRouter>
   )
