@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DetailMachine from './components/DetailMachine'
 import DetailModelMachine from './components/DetailModelMachine'
 import DetailModelEngine from './components/DetailModelEngine'
+import DetailModelTransmission from './components/DetailModelTransmission'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/machines/:id" element={<DetailMachine/>} />
         <Route path="/model_machines/:id" element={<DetailModelMachine/>} />
         <Route path="/model_engines/:id" element={<DetailModelEngine/>} />
+        <Route path="/model_transmissions/:id" element={<DetailModelTransmission/>} />
       </Routes>
     </BrowserRouter>
   )
