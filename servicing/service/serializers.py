@@ -8,6 +8,7 @@ from service.models.machine import (
     ModelMachine,
     ModelSteerAxle,
     ModelTransmission,
+    Client,
     )
 
 from service.models.complaint import Complaint, FailedUnit, MethodRestoration
@@ -59,6 +60,12 @@ class TypeTISerializer(serializers.ModelSerializer):
         model = TypeTI
         fields = "__all__"
 
+class ClienSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
+    class Meta:
+        model = Client
+        fields = "__all__"
+
 class MachineSerializer(serializers.ModelSerializer):
     # Поля для ОТОБРАЖЕНИЯ (только чтение)
     model_machine_info = ModelMachineSerializer(source='model_machine', read_only=True)
@@ -67,6 +74,7 @@ class MachineSerializer(serializers.ModelSerializer):
     model_drive_axle_info = ModelDriveAxleSerializer(source='model_drive_axle', read_only=True)
     model_steer_axle_info = ModelSteerAxleSerializer(source='model_steer_axle', read_only=True)
     service_company_info = ServiceCompanySerializer(source='service_company', read_only=True)
+    client_info = ClienSerializer(source="client", read_only=True)
 
     class Meta:
         model = Machine
@@ -79,7 +87,7 @@ class MachineSerializer(serializers.ModelSerializer):
             'model_engine', 'model_transmission', 'model_drive_axle', 'model_steer_axle',
             # Информационные поля
             'model_machine_info', 'model_engine_info', 'model_transmission_info',
-            'model_drive_axle_info', 'model_steer_axle_info', 'service_company_info'
+            'model_drive_axle_info', 'model_steer_axle_info', 'service_company_info', 'client_info',
         ]
 
 
@@ -95,7 +103,7 @@ class TechnicalInspectionSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'date_service', 'running_hours', 'order', 'date_order',
             'type_ti', 'service_company', 'machine', # Поля для ЗАПИСИ (принимают ID)
-            'type_ti_info', 'service_company_info', 'machine_info' # Поля для ЧТЕНИЯ
+            'type_ti_info', 'service_company_info', 'machine_info',  # Поля для ЧТЕНИЯ
         ]
 
 
