@@ -11,7 +11,8 @@ from service.views import (
     type_TI,
     complaint,
     failed_unit,
-    service_company
+    service_company,
+    client,
     )
 
 urlpatterns = []
@@ -104,6 +105,13 @@ url_method_restoration = [
     path("api/method_restorations/<int:id>/delete/", method_restoration.method_restoration_delete, name="method-restoration-delete"),
 ]
 
+url_client = [
+    path("api/clients/", client.client_list_create, name="clients-list-create"),
+    path("api/clients/<int:id>/", client.client_detail, name="client"),
+    path("api/clients/<int:id>/update/", client.client_update, name="clients-update"),
+    path("api/clients/<int:id>/delete/", client.client_delete, name="clients-delete"),
+]
+
 add_urls(url_machine)
 add_urls(url_model_machine)
 add_urls(url_model_engine)
@@ -116,3 +124,4 @@ add_urls(url_type_TI)
 add_urls(url_complaint)
 add_urls(url_failed_unit)
 add_urls(url_method_restoration)
+add_urls(url_client)

@@ -5,7 +5,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from service.models.machine import Machine
+from service.models.machine import Machine, Client
 
 from service.serializers import (
     MachineSerializer,
@@ -17,8 +17,16 @@ def machine_list_create(request):
     """получение машин и создание машины"""
     if request.method == "GET":
         user = request.user
+
         if user.is_authenticated:
-            queryset = Machine.objects.filter(client__user=user)
+            # Проверка на доступ к записям через модель Client
+            client_profile = Client.objects.filter(user = user).first()
+            role = client_profile.role if client_profile else "manager"
+
+            if role == "manager" or user.is_staff:
+                queryset = Machine.objects.all()
+            else:
+                queryset = Machine.objects.filter(client__user=user)
         else:
             # Получаем значение search
             search_query = request.query_params.get("search", None)

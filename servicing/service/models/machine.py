@@ -1,6 +1,30 @@
 from django.db import models
 from service.models.service_company import ServiceCompany
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+
+@receiver(post_save, sender=User)
+def create_user_client_profile(sender, instance, created, **kwargs):
+    """
+    Сигнал срабатывает после сохранения User.
+    created = True, если пользователь только что создан.
+    """
+    if created:
+        # Создаем запись в таблице Client и привязываем её к новому User
+        # По умолчанию роль будет "client"
+        Client.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_client_profile(sender, instance, **kwargs):
+    """
+    Обновляем профиль при каждом сохранении пользователя (опционально).
+    """
+    # Проверяем наличие профиля, чтобы избежать ошибок, если профиль удален вручную
+    if hasattr(instance, 'client_profile'):
+        instance.client_profile.save()
 
 
 class Machine(models.Model):

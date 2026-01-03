@@ -60,7 +60,7 @@ class TypeTISerializer(serializers.ModelSerializer):
         model = TypeTI
         fields = "__all__"
 
-class ClienSerializer(serializers.ModelSerializer):
+class ClientSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Client
@@ -74,7 +74,7 @@ class MachineSerializer(serializers.ModelSerializer):
     model_drive_axle_info = ModelDriveAxleSerializer(source='model_drive_axle', read_only=True)
     model_steer_axle_info = ModelSteerAxleSerializer(source='model_steer_axle', read_only=True)
     service_company_info = ServiceCompanySerializer(source='service_company', read_only=True)
-    client_info = ClienSerializer(source="client", read_only=True)
+    client_info = ClientSerializer(source="client", read_only=True)
 
     class Meta:
         model = Machine
