@@ -4,6 +4,7 @@ import { TableMachines } from '../TableMachines';
 import TableTI from '../TableTI';
 import TableComplaint from '../TableComplaint/index.jsx';
 import { MachinesService, TechnicalInspectService, ComplaintService } from '../../../Machines.jsx';
+import Management from '../Management/index.jsx';
 
 const machineService = new MachinesService();
 const technicalInspectService = new TechnicalInspectService();
@@ -62,6 +63,7 @@ function Main (){
                         <button onClick={() => { setActiveTab('machines')}}>Общая информация</button>
                         <button onClick={() => { setActiveTab('ti')}}>ТО</button>
                         <button onClick={() => { setActiveTab('complaints')}}>Рекламация</button>
+                        <button onClick={() => { setActiveTab('manager')}}>Управление</button>
                     </div>
                     <div className='tab-content'>
                         {activeTab === 'machines' && (
@@ -80,6 +82,12 @@ function Main (){
                             <>
                                 <h2>Рекламации</h2>
                                 <TableComplaint data={complaintData} />
+                            </>
+                        )}
+                        {activeTab === 'manager' && (
+                            <>
+                                <h2>Справочники</h2>
+                                <Management/>
                             </>
                         )}
                     </div>

@@ -9,19 +9,23 @@ import DetailModelMachine from './components/DetailModelMachine'
 import DetailModelEngine from './components/DetailModelEngine'
 import DetailModelTransmission from './components/DetailModelTransmission'
 import DetailModelDriveAxle from './components/DetailModelDriveAxle'
+import DetailModelSteerAxle from './components/DetailModelSteerAxle'
 
 function App() {
+
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header/>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/machines/:id" element={<DetailMachine/>} />
         <Route path="/model_machines/:id" element={<DetailModelMachine/>} />
         <Route path="/model_engines/:id" element={<DetailModelEngine/>} />
         <Route path="/model_transmissions/:id" element={<DetailModelTransmission/>} />
         <Route path="/model_drive_axles/:id" element={<DetailModelDriveAxle/>} />
+        <Route path="/model_steer_axles/:id" element={<DetailModelSteerAxle/>} />
       </Routes>
     </BrowserRouter>
   )

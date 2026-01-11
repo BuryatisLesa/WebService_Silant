@@ -19,12 +19,9 @@ def create_user_client_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_client_profile(sender, instance, **kwargs):
-    """
-    Обновляем профиль при каждом сохранении пользователя (опционально).
-    """
-    # Проверяем наличие профиля, чтобы избежать ошибок, если профиль удален вручную
     if hasattr(instance, 'client_profile'):
-        instance.client_profile.save()
+        for client in instance.client_profile.all():
+            client.save()
 
 
 class Machine(models.Model):

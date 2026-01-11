@@ -1,5 +1,5 @@
 import { TechnicalInspectService, MachinesService } from "../../../Machines";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const tiService = new TechnicalInspectService();
 const machineService = new MachinesService(); 
@@ -7,6 +7,15 @@ const machineService = new MachinesService();
 function TableTI({ data }) {
     const [editRowId, setEditRowId] = useState(null);
     const [formData, setFormData] = useState({});
+
+
+    // Фильтрация
+    const [activeFilter, setActiveFilter] = useState({
+        typesTI: [],
+        machines: [],
+        serviceCompanies: []
+    });
+
     const [options, setOptions] = useState({
         typesTI: [],
         machines: [],
@@ -81,7 +90,68 @@ function TableTI({ data }) {
         </select>
     );
 
+    const Filter = ({ name, category, data, selectedValues, onChange, onReset }) => {
+        const formRef = useRef(null);
+
+        return (
+            <div className="filter-group" style={{ margin: '10px 0', border: '1px solid #ccc', padding: '10px' }}>
+                <strong>{name}</strong>
+                <form ref={formRef} onReset={() => onReset(category)}>
+                    {data && data.map((item) => (
+                        <label key={item.id} style={{ display: 'block' }}>
+                            <input
+                                type="checkbox"
+                                value={item.id}
+                                checked={selectedValues.includes(String(item.id))}
+                                onChange={() => onChange(category, item.id)}
+                            />
+                            {item.name}
+                        </label>
+                    ))}
+                    <button type="reset" style={{ marginTop: '5px' }} disabled={selectedValues.length === 0}>
+                        Сбросить {name}
+                    </button>
+                </form>
+            </div>
+        );
+    };
+
+    const handleFilterChange = (category, id) => {
+        setActiveFilter(prev => {
+            const currentCategory = prev[category];
+            const stringId = String(id);
+            const newValues = currentCategory.includes(stringId)
+                ? currentCategory.filter(item => item !== stringId)
+                : [...currentCategory, stringId];
+            
+            return { ...prev, [category]: newValues };
+        });
+    };
+
+    const handleFilterReset = (category) => {
+        setActiveFilter(prev => ({ ...prev, [category]: [] }));
+    };
+
     return (
+        <>
+        <div className="filters-container" style={{ display: 'flex', gap: '20px' }}>
+            <Filter 
+                name="Тип ТО" 
+                category="typesTI"
+                data={options.typesTI} 
+                selectedValues={activeFilter.typesTI}
+                onChange={handleFilterChange}
+                onReset={handleFilterReset}
+            />
+            <Filter 
+                name="Сервисная компания" 
+                category="serviceCompanies"
+                data={options.serviceCompanies} 
+                selectedValues={activeFilter.serviceCompanies}
+                onChange={handleFilterChange}
+                onReset={handleFilterReset}
+            />
+        </div>
         <table border="1" style={{ width: "100%", marginTop: "20px", borderCollapse: "collapse" }}>
             <thead>
                 <tr style={{ backgroundColor: "#f2f2f2" }}>
@@ -95,7 +165,19 @@ function TableTI({ data }) {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item) => (
+                {data
+                    .filter(item => {
+                        // Фильтр по типо ТО
+                        const typesTIMath = activeFilter.typesTI.length === 0 || 
+                            activeFilter.typesTI.includes(String(item.type_ti_info?.id));
+
+                        // Фильтр по сервисной компании
+                        const serviceCompaniesMath = activeFilter.serviceCompanies.length === 0 || 
+                            activeFilter.serviceCompanies.includes(String(item.service_company_info?.id));
+
+                        return typesTIMath && serviceCompaniesMath;
+                    })
+                    .map((item) => (
                     <tr key={item.id}>
                         {editRowId === item.id ? (
                             <>
@@ -168,6 +250,7 @@ function TableTI({ data }) {
                 ))}
             </tbody>
         </table>
+    </>
     );
 }
 

@@ -1,26 +1,37 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 
 from service.models.technical_inspection import TechnicalInspection
+from service.models.machine import Machine, Client
 
 from service.serializers import TechnicalInspectionSerializer
 
 
 
 @api_view(["GET", "POST"])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def technical_inspection_list_create(request):
     if request.method == "GET":
         # Получаем пользователя из токена (request.user)
         user = request.user
+        queryset = TechnicalInspection.objects.none()
         
-        # Фильтруем ТО: ищем записи, где клиент связан с этим пользователем
-        # client__user — это путь через модель Client к модели User
-        technical_inspections = TechnicalInspection.objects.filter(machine__client__user = user)
-        serializer = TechnicalInspectionSerializer(technical_inspections, many=True)
+        if user.is_authenticated:
+            # Проверка на доступ к записям через модель Client
+            client_profile = Client.objects.filter(user = user).first()
+            role = client_profile.role if client_profile else "None"
+
+            if role == "manager" or user.is_staff:
+                queryset = TechnicalInspection.objects.all().order_by("-date_service")
+            else:
+                # Фильтруем ТО: ищем записи, где клиент связан с этим пользователем
+                # client__user — это путь через модель Client к модели User
+                machines = Machine.objects.filter(client__user = user)
+                queryset = TechnicalInspection.objects.filter(machine__in = machines).order_by("-date_service")
+        serializer = TechnicalInspectionSerializer(queryset, many=True)
         return Response(serializer.data)
 
     

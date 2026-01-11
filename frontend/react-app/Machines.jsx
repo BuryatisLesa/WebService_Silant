@@ -49,7 +49,9 @@ class MachinesService{
     getServiceCompanies() { return axios.get(`${API_URL}/api/service_companies/`); }
     getServiceCompany(id) { return axios.get(`${API_URL}/api/service_companies/${id}/`); }
     getClients() { return axios.get(`${API_URL}/api/clients/`); }
-
+    getFailedUnits() { return axios.get(`${API_URL}/api/failed_units/`); }
+    getMethodsRestoration() { return axios.get(`${API_URL}/api/method_restorations/`); }
+    getTypeTI() { return axios.get(`${API_URL}/api/type_technical_inspections/`); }
 
 }
 
@@ -113,5 +115,6 @@ class ComplaintService {
         return axios.get(`${API_URL}/api/method_restorations/`); 
     }
 }
-export { MachinesService, TechnicalInspectService, ComplaintService };
+
+export { MachinesService, TechnicalInspectService, ComplaintService};
 
