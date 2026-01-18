@@ -1,0 +1,25 @@
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.welcome-page__search-input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    width: 500px;
+    height: 30px;
+}
+
+
+.welcome-page__search-button {
+    max-width: 100%;
+    width: 200px;
+    height: 30px;
+    background-color: rgb(22, 62, 108);
+    color: rgb(235, 230, 214);
+    font-size: 15px;
+}

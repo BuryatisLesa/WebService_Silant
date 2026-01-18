@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { MachinesService} from '../../../Machines.jsx';
 import { TableMachines } from '../TableMachines';
+import style from './style.module.css'
 
 
 const machineService = new MachinesService();
@@ -32,18 +33,24 @@ function Search(){
     }
 
     return (
-        <>
-        <div>
-            <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button onClick={handlerButtonClick}>Найти машину</button>
+        <div className={style["welcome-page"]}>
+            <div className={style["welcome-page__search"]}>
+                <input
+                    className={style["welcome-page__search-input"]}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button
+                className={style["welcome-page__search-button"]}
+                onClick={handlerButtonClick}
+                >
+                    Поиск
+                </button>
+            </div>
+            <div>
+                <TableMachines data={machineData}></TableMachines>
+            </div>
         </div>
-        <div>
-            <TableMachines data={machineData}></TableMachines>
-        </div>
-        </>
     )}
 export default Search;

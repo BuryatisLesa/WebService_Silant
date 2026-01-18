@@ -35,6 +35,7 @@ class MachinesService{
         }
     })
     }
+
     // Справочники
     getModels() { return axios.get(`${API_URL}/api/model_machines/`); }
     getModel(id) { return axios.get(`${API_URL}/api/model_machines/${id}/`); }

@@ -1,0 +1,28 @@
+
+.main {
+    margin-top: 40px;
+}
+
+
+.main__navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.main__navbar-button {
+  margin-top: 20px;
+  max-width: 100%;
+  width: 200px;
+  height: 30px;
+  background-color: rgb(235, 230, 214);
+  color: rgb(22, 62, 108);
+  font-size: 15px;
+}
+
+.button--active {
+    background-color: #D20A11; 
+    color: white;
+    border-color: #D20A11;
+}

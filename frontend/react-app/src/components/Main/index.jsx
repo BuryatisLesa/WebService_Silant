@@ -5,6 +5,7 @@ import TableTI from '../TableTI';
 import TableComplaint from '../TableComplaint/index.jsx';
 import { MachinesService, TechnicalInspectService, ComplaintService } from '../../../Machines.jsx';
 import Management from '../Management/index.jsx';
+import style from './style.module.css'
 
 const machineService = new MachinesService();
 const technicalInspectService = new TechnicalInspectService();
@@ -54,16 +55,20 @@ function Main (){
         getComplaint();
     }, [token]);
 
+        // Функция для проверки активного класса
+    const getBtnClass = (tabName) => 
+        `${style["main__navbar-button"]} ${activeTab === tabName ? style["button--active"] : ""}`;
+
     return (    
-        <main>
+        <main className={style["main"]}>
             {token ? (
                 <>  
                     {/*Кнопки переключение таблиц*/}
-                    <div className='tabs-nav'>
-                        <button onClick={() => { setActiveTab('machines')}}>Общая информация</button>
-                        <button onClick={() => { setActiveTab('ti')}}>ТО</button>
-                        <button onClick={() => { setActiveTab('complaints')}}>Рекламация</button>
-                        <button onClick={() => { setActiveTab('manager')}}>Управление</button>
+                    <div className={style["main__navbar"]}>
+                        <button className={getBtnClass('machines')} onClick={() => setActiveTab('machines')}>Общая информация</button>
+                        <button className={getBtnClass('ti')} onClick={() => setActiveTab('ti')}>ТО</button>
+                        <button className={getBtnClass('complaints')} onClick={() => setActiveTab('complaints')}>Рекламация</button>
+                        <button className={getBtnClass('manager')} onClick={() => setActiveTab('manager')}>Управление</button>
                     </div>
                     <div className='tab-content'>
                         {activeTab === 'machines' && (
@@ -94,7 +99,12 @@ function Main (){
                 </>
             ) : (
                 // Если токена нет, показываем поиск для анонимов
-                <Search />
+                <div className={style["main__top"]}>
+                    <div className={style["main__welcome-text"]}>
+                        <h2>Проверь комплектацию и технические характеристики техники Силант</h2>
+                    </div>
+                    <Search />
+                </div>
             )}
         </main>
     );
